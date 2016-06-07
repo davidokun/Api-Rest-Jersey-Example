@@ -4,13 +4,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.singletonapps</groupId>
-    <artifactId>messenger</artifactId>
+    <artifactId>rest-jersey-messenger</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>messenger</name>
+    <name>rest-jersey-messenger</name>
 
     <build>
-        <finalName>messenger</finalName>
+        <finalName>rest-jersey-messenger</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -32,7 +32,7 @@
                 <artifactId>jersey-bom</artifactId>
                 <version>${jersey.version}</version>
                 <type>pom</type>
-                <scope>import</scope>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -41,15 +41,18 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet-core</artifactId>
-            <!-- use the following artifactId if you don't need servlet 2.x compatibility -->
-            <!-- artifactId>jersey-container-servlet</artifactId -->
+            <version>2.23</version>
         </dependency>
-        <!-- uncomment this to get JSON support
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.23</version>
         </dependency>
-        -->
+        <dependency>
+            <groupId>org.glassfish.jersey.ext.cdi</groupId>
+            <artifactId>jersey-cdi1x</artifactId>
+            <version>2.23</version>
+        </dependency>
     </dependencies>
     <properties>
         <jersey.version>2.16</jersey.version>
