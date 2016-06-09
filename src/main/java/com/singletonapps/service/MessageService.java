@@ -13,9 +13,19 @@ public class MessageService implements Serializable {
 
     private Map<Long, Message> messages = DataBaseStub.getMessages();
 
+    public MessageService(){
+        messages.put(1L, new Message(1L, "Hello Fuck", "David"));
+        messages.put(2L, new Message(2L, "Hello Ass", "Marin"));
+    }
+
+
     public List<Message> getAllMessages(){
 
         return new ArrayList<>(messages.values());
+    }
+
+    public Message getMessage(long messageId){
+        return messages.get(messageId);
     }
 
     public Message addMessage(Message message){
@@ -24,5 +34,7 @@ public class MessageService implements Serializable {
         messages.put(message.getId(), message);
         return message;
     }
+
+
 
 }
