@@ -34,4 +34,20 @@ public class MessageEndPoint {
     public Message addMessage(Message message){
         return messageService.addMessage(message);
     }
+
+    @PUT
+    @Path("/{messageId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Message updateMessage(@PathParam("messageId") long id, Message message){
+        message.setId(id);
+        return messageService.updateMessage(message);
+    }
+
+    @DELETE
+    @Path("/{messageId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void removeMessage(@PathParam("messageId") long id){
+        messageService.removeMessage(id);
+    }
 }
