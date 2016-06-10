@@ -1,8 +1,7 @@
-package com.singletonapps.resources;
+package com.singletonapps.endpoints;
 
 import com.singletonapps.model.Message;
 import com.singletonapps.service.MessageService;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,7 +10,7 @@ import java.util.List;
 
 
 @Path("/messages")
-public class MessageResource {
+public class MessageEndPoint {
 
     @Inject
     MessageService messageService;
@@ -30,9 +29,9 @@ public class MessageResource {
     }
 
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Message addMessage(String body){
-
-        throw new NotImplementedException();
+    public Message addMessage(Message message){
+        return messageService.addMessage(message);
     }
 }
