@@ -25,5 +25,5 @@ This project is a basic setup to start using Jersey to create REST services. It'
 
     `docker-compose up`
     
-4. Application will be deployed and listening  **http://localhost:8080**
+4. Application will be deployed and listening  **http://localhost:8080/v1/messages**
 
