@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  messages:
+    container_name: "rest-jersey"
+    build: ./tomcat
+    ports:
+      - "8080:8080"
