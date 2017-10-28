@@ -1,9 +1,9 @@
 package com.singletonapps.endpoints;
 
 import com.singletonapps.model.Message;
-import com.singletonapps.service.MessageService;
+import com.singletonapps.service.MessageServiceable;
 
-import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -12,13 +12,9 @@ import java.util.List;
 @Path("/messages")
 public class MessageEndPoint {
 
+    @Inject
+    private MessageServiceable messageService;
 
-    private MessageService messageService;
-
-    @PostConstruct
-    public void init(){
-        messageService = new MessageService();
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

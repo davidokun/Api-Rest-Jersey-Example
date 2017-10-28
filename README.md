@@ -25,5 +25,55 @@ This project is a basic setup to start using Jersey to create REST services. It'
 
     `docker-compose up`
     
-4. Application will be deployed and listening  **http://localhost:8080/v1/messages**
+4. Application will be deployed and listening on  **http://localhost:8080/v1/messages**
+
+---
+
+## Verify
+
+To test the service make the following calls:
+
+1. To get all messages
+    
+    `curl -X GET http://localhost:8080/v1/messages`
+
+    It should return a response like:
+    
+    ```Json
+    [
+        {
+            "author": "Eddard Stark",
+            "created": "2017-10-27T20:17:58.147-05:00",
+            "id": 1,
+            "message": "Winter is coming"
+        },
+        {
+            "author": "Daenerys Targaryen",
+            "created": "2017-10-27T20:17:58.147-05:00",
+            "id": 2,
+            "message": "Mother of Dragons"
+        },
+        {
+            "author": "Cercei Lannister",
+            "created": "2017-10-27T20:17:58.147-05:00",
+            "id": 3,
+            "message": "Queen of the Seven Kingdoms"
+        }
+    ]
+    ```
+    
+2. To get a single message:
+
+    `curl -X GET http://localhost:8080/v1/messages/2`
+    
+    ```Json
+    {
+        "author": "Daenerys Targaryen",
+        "created": "2017-10-27T20:20:05.572-05:00",
+        "id": 2,
+        "message": "Mother of Dragons"
+    }
+    ```
+    
+ 
 
