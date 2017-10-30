@@ -31,6 +31,8 @@ This project is a basic setup to start using Jersey to create REST services. It'
 
 ## Verify
 
+### Messages Endpoint
+
 To test the service make the following calls:
 
 1. To get all messages
@@ -75,5 +77,44 @@ To test the service make the following calls:
     }
     ```
     
+### Profiles Endpoint
+
+1. To get all Profiles:
+
+    `curl -X GET http://localhost:8080/v1/profiles`
+    
+    It should return a response like :
+    
+    ```Json
+    
+    [
+        {
+            "firstName": "John",
+            "id": 1,
+            "lastName": "Doe",
+            "profileName": "admin"
+        },
+        {
+            "firstName": "Jane",
+            "id": 2,
+            "lastName": "Doe",
+            "profileName": "publisher"
+        }
+    ]
+    ```
+2. To get a single Profile:
+
+    `curl -X GET http://localhost:8080/v1/profiles/2`
+    
+    It should get a response like:
+    
+    ```JSON
+    {
+        "firstName": "Jane",
+        "id": 2,
+        "lastName": "Doe",
+        "profileName": "publisher"
+    }
+    ```
  
 
