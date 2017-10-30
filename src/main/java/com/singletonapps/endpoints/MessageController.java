@@ -1,7 +1,7 @@
 package com.singletonapps.endpoints;
 
 import com.singletonapps.model.Message;
-import com.singletonapps.service.MessageServiceable;
+import com.singletonapps.service.MessageService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -10,15 +10,16 @@ import java.util.List;
 
 
 @Path("/messages")
-public class MessageEndPoint {
+public class MessageController {
 
     @Inject
-    private MessageServiceable messageService;
+    private MessageService messageService;
 
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Message> getMessages(){
+
         return messageService.getAllMessages();
     }
 
@@ -26,6 +27,7 @@ public class MessageEndPoint {
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Message getMessage(@PathParam("messageId") long messageId){
+
         return messageService.getMessage(messageId);
     }
 
@@ -33,6 +35,7 @@ public class MessageEndPoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Message addMessage(Message message){
+
         return messageService.addMessage(message);
     }
 
@@ -41,6 +44,7 @@ public class MessageEndPoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Message updateMessage(@PathParam("messageId") long id, Message message){
+
         message.setId(id);
         return messageService.updateMessage(message);
     }
@@ -49,6 +53,7 @@ public class MessageEndPoint {
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
     public void removeMessage(@PathParam("messageId") long id){
+
         messageService.removeMessage(id);
     }
 }

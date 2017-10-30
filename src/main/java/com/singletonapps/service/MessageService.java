@@ -4,7 +4,7 @@ import com.singletonapps.model.Message;
 
 import java.util.List;
 
-public interface MessageServiceable {
+public interface MessageService {
 
     List<com.singletonapps.model.Message> getAllMessages();
 
