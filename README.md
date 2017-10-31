@@ -45,19 +45,19 @@ To test the service make the following calls:
     [
         {
             "author": "Eddard Stark",
-            "created": "2017-10-27T20:17:58.147-05:00",
+            "lastModified": "2017-10-27T20:17:58.147-05:00",
             "id": 1,
             "message": "Winter is coming"
         },
         {
             "author": "Daenerys Targaryen",
-            "created": "2017-10-27T20:17:58.147-05:00",
+            "lastModified": "2017-10-27T20:17:58.147-05:00",
             "id": 2,
             "message": "Mother of Dragons"
         },
         {
             "author": "Cercei Lannister",
-            "created": "2017-10-27T20:17:58.147-05:00",
+            "lastModified": "2017-10-27T20:17:58.147-05:00",
             "id": 3,
             "message": "Queen of the Seven Kingdoms"
         }
@@ -71,7 +71,7 @@ To test the service make the following calls:
     ```Json
     {
         "author": "Daenerys Targaryen",
-        "created": "2017-10-27T20:20:05.572-05:00",
+        "lastModified": "2017-10-27T20:20:05.572-05:00",
         "id": 2,
         "message": "Mother of Dragons"
     }
