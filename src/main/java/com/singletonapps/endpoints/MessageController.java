@@ -18,7 +18,17 @@ public class MessageController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Message> getMessages(){
+    public List<Message> getMessages(@QueryParam("year") int year,
+                                     @QueryParam("offset") int offset,
+                                     @QueryParam("size") int size){
+
+        if (year > 0){
+            return messageService.getAllMessagesByYear(year);
+        }
+
+        if (offset >= 0 && size > 0){
+            return messageService.getAllMessagesPaginated(offset, size);
+        }
 
         return messageService.getAllMessages();
     }
