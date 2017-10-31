@@ -1,6 +1,5 @@
 package com.singletonapps.endpoints;
 
-import com.singletonapps.model.Message;
 import com.singletonapps.model.Profile;
 import com.singletonapps.service.ProfileService;
 

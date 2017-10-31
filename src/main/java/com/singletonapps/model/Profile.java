@@ -1,7 +1,7 @@
 package com.singletonapps.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @XmlRootElement
 public class Profile {
@@ -10,16 +10,17 @@ public class Profile {
     private String profileName;
     private String firstName;
     private String lastName;
-    private Date created;
+    private LocalDateTime lastModified;
 
     public Profile() {
     }
 
-    public Profile(long id, String profileName, String firstName, String lastName) {
+    public Profile(long id, String profileName, String firstName, String lastName, LocalDateTime created) {
         this.id = id;
         this.profileName = profileName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.lastModified = created;
     }
 
     public long getId() {
@@ -54,11 +55,11 @@ public class Profile {
         this.lastName = lastName;
     }
 
-    public Date getCreated() {
-        return created;
+    public LocalDateTime getLastModified() {
+        return lastModified;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
     }
 }
