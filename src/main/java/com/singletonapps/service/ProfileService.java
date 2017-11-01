@@ -15,4 +15,8 @@ public interface ProfileService {
     Profile updateProfile(Profile profile);
 
     Profile removeProfile(long id);
+
+    List<Profile> getAllProfilesByYear(int year);
+
+    List<Profile> getProfilesPaginated(int offset, int size);
 }

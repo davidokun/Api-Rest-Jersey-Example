@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Singleton
@@ -21,6 +22,7 @@ public class ProfileServiceImpl implements ProfileService, Serializable {
 
         profiles.put(1L, new Profile(1, "admin", "John", "Doe", LocalDateTime.now()));
         profiles.put(2L, new Profile(2, "publisher", "Jane", "Doe", LocalDateTime.now()));
+        profiles.put(3L, new Profile(3, "editor", "Edward", "Elric", LocalDateTime.of(2009, 6, 3, 5,30,30)));
     }
 
     @Override
@@ -54,5 +56,26 @@ public class ProfileServiceImpl implements ProfileService, Serializable {
     @Override
     public Profile removeProfile(long id) {
         return profiles.remove(id);
+    }
+
+    @Override
+    public List<Profile> getAllProfilesByYear(int year){
+
+        return profiles.entrySet().stream()
+                .filter(p -> p.getValue().getLastModified().getYear() == year)
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Profile> getProfilesPaginated(int offset, int size) {
+
+        List<Profile> profileList = new ArrayList<>(profiles.values());
+
+        return profileList.subList(offset,
+                size > profileList.size() ?
+                profileList.size()
+                :
+                offset + size);
     }
 }
