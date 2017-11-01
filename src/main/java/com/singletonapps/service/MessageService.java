@@ -15,4 +15,8 @@ public interface MessageService {
     Message updateMessage(com.singletonapps.model.Message message);
 
     Message removeMessage(long id);
+
+    List<Message> getAllMessagesByYear(int year);
+
+    List<Message> getAllMessagesPaginated(int offSet, int size);
 }

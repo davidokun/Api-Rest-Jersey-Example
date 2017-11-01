@@ -16,7 +16,16 @@ public class ProfileController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Profile> getProfiles(){
+    public List<Profile> getProfiles(@QueryParam("year") int year,
+                                     @QueryParam("offset") int offset,
+                                     @QueryParam("size") int size){
+
+        if (year > 0){
+            return profileService.getAllProfilesByYear(year);
+        }
+        if (offset >= 0 && size > 0) {
+            return profileService.getProfilesPaginated(offset, size);
+        }
 
         return profileService.getAllProfiles();
     }
