@@ -1,5 +1,6 @@
 package com.singletonapps.endpoints;
 
+import com.singletonapps.filter.BeanFilter;
 import com.singletonapps.model.Profile;
 import com.singletonapps.service.ProfileService;
 
@@ -16,15 +17,13 @@ public class ProfileController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Profile> getProfiles(@QueryParam("year") int year,
-                                     @QueryParam("offset") int offset,
-                                     @QueryParam("size") int size){
+    public List<Profile> getProfiles(@BeanParam BeanFilter filter){
 
-        if (year > 0){
-            return profileService.getAllProfilesByYear(year);
+        if (filter.getYear() > 0){
+            return profileService.getAllProfilesByYear(filter.getYear());
         }
-        if (offset >= 0 && size > 0) {
-            return profileService.getProfilesPaginated(offset, size);
+        if (filter.getOffset() >= 0 && filter.getSize() > 0) {
+            return profileService.getProfilesPaginated(filter.getOffset(), filter.getSize());
         }
 
         return profileService.getAllProfiles();
