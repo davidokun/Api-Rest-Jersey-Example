@@ -15,6 +15,9 @@ public class MessageController {
     @Inject
     private MessageService messageService;
 
+    @Inject
+    private CommentController commentController;
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -71,6 +74,6 @@ public class MessageController {
     @Path("/{messageId}/comments")
     public CommentController getCommentController(){
 
-        return new CommentController();
+        return commentController;
     }
 }
