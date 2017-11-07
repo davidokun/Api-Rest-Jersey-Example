@@ -1,27 +1,24 @@
 package com.singletonapps.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @XmlRootElement
-public class Message {
+public class Comment {
 
     private long id;
     private String message;
     private LocalDateTime lastModified;
     private String author;
-    private Map<Long, Comment> comments = new HashMap<>();
 
-    public Message() {
+    public Comment() {
+
     }
 
-    public Message(long id, String message, String author, LocalDateTime localDateTime) {
+    public Comment(long id, String message, LocalDateTime lastModified, String author) {
         this.id = id;
         this.message = message;
-        this.lastModified = localDateTime;
+        this.lastModified = lastModified;
         this.author = author;
     }
 
@@ -55,14 +52,5 @@ public class Message {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    @XmlTransient
-    public Map<Long, Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(Map<Long, Comment> comments) {
-        this.comments = comments;
     }
 }

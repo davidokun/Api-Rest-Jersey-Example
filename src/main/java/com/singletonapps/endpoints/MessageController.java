@@ -15,6 +15,9 @@ public class MessageController {
     @Inject
     private MessageService messageService;
 
+    @Inject
+    private CommentController commentController;
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -65,5 +68,12 @@ public class MessageController {
     public void removeMessage(@PathParam("messageId") long id){
 
         messageService.removeMessage(id);
+    }
+
+
+    @Path("/{messageId}/comments")
+    public CommentController getCommentController(){
+
+        return commentController;
     }
 }
