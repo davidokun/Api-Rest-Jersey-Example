@@ -66,4 +66,11 @@ public class MessageController {
 
         messageService.removeMessage(id);
     }
+
+
+    @Path("/{messageId}/comments")
+    public CommentController getCommentController(){
+
+        return new CommentController();
+    }
 }
