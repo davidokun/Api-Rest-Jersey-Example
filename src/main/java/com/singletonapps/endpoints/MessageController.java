@@ -5,7 +5,7 @@ import com.singletonapps.service.MessageService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
 import java.util.List;
 
 
@@ -21,53 +21,73 @@ public class MessageController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Message> getMessages(@QueryParam("year") int year,
+    public Response getMessages(@QueryParam("year") int year,
                                      @QueryParam("offset") int offset,
                                      @QueryParam("size") int size){
 
+        GenericEntity<List<Message>> entity;
+
         if (year > 0){
-            return messageService.getAllMessagesByYear(year);
+
+            entity = new GenericEntity<List<Message>>(messageService.getAllMessagesByYear(year)){};
+            return Response.ok(entity)
+                    .build();
         }
 
         if (offset >= 0 && size > 0){
-            return messageService.getAllMessagesPaginated(offset, size);
+            entity = new GenericEntity<List<Message>>(messageService.getAllMessagesPaginated(offset, size)){};
+            return Response.ok(entity)
+                    .build();
         }
 
-        return messageService.getAllMessages();
+        entity = new GenericEntity<List<Message>>(messageService.getAllMessages()){};
+        return Response.ok(entity)
+                .build();
     }
 
     @GET
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Message getMessage(@PathParam("messageId") long messageId){
+    public Response getMessage(@PathParam("messageId") long messageId){
 
-        return messageService.getMessage(messageId);
+        return Response.ok(messageService.getMessage(messageId))
+                .build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Message addMessage(Message message){
+    public Response addMessage(Message message, @Context UriInfo uriInfo){
 
-        return messageService.addMessage(message);
+        Message responseMessage = messageService.addMessage(message);
+        String newId = String.valueOf(responseMessage.getId());
+
+        return Response.created(uriInfo.getAbsolutePathBuilder().path(newId).build())
+                    .entity(responseMessage)
+                    .build();
     }
 
     @PUT
     @Path("/{messageId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Message updateMessage(@PathParam("messageId") long id, Message message){
+    public Response updateMessage(@PathParam("messageId") long id, Message message){
 
         message.setId(id);
-        return messageService.updateMessage(message);
+
+        return Response.ok(messageService.updateMessage(message))
+                .build();
     }
 
     @DELETE
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void removeMessage(@PathParam("messageId") long id){
+    public Response removeMessage(@PathParam("messageId") long id){
 
         messageService.removeMessage(id);
+
+        return Response.noContent()
+                .build();
     }
 
 

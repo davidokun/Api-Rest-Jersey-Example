@@ -34,6 +34,7 @@ public class MessageServiceImpl implements MessageService, Serializable {
 
     @Override
     public Message getMessage(long messageId){
+        // TODO: Add Optional<T> as a return type
         return messages.get(messageId);
     }
 
@@ -49,7 +50,7 @@ public class MessageServiceImpl implements MessageService, Serializable {
 
     @Override
     public Message updateMessage(Message message) {
-
+        // TODO: Add Optional<T> as a return type
         if (message.getId() <= 0){
             return null;
         }
