@@ -1,6 +1,7 @@
 package com.singletonapps.service.impl;
 
 import com.singletonapps.database.DataBaseStub;
+import com.singletonapps.exception.DataNotFoundException;
 import com.singletonapps.model.Message;
 import com.singletonapps.service.MessageService;
 
@@ -34,8 +35,14 @@ public class MessageServiceImpl implements MessageService, Serializable {
 
     @Override
     public Message getMessage(long messageId){
-        // TODO: Add Optional<T> as a return type
-        return messages.get(messageId);
+
+        final Message message = messages.get(messageId);
+
+        if (message == null){
+            throw new DataNotFoundException("Message with id " + messageId + " not found");
+        }
+
+        return message;
     }
 
     @Override
@@ -50,7 +57,7 @@ public class MessageServiceImpl implements MessageService, Serializable {
 
     @Override
     public Message updateMessage(Message message) {
-        // TODO: Add Optional<T> as a return type
+
         if (message.getId() <= 0){
             return null;
         }
