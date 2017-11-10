@@ -1,6 +1,7 @@
 package com.singletonapps.service.impl;
 
 import com.singletonapps.database.DataBaseStub;
+import com.singletonapps.exception.DataNotFoundException;
 import com.singletonapps.model.Profile;
 import com.singletonapps.service.ProfileService;
 
@@ -32,7 +33,14 @@ public class ProfileServiceImpl implements ProfileService, Serializable {
 
     @Override
     public Profile getProfile(long profileId) {
-        return profiles.get(profileId);
+
+        final Profile profile = profiles.get(profileId);
+
+        if (profile == null) {
+            throw new DataNotFoundException("Profile with Id " + profileId + " not found");
+        }
+
+        return profile;
     }
 
     @Override

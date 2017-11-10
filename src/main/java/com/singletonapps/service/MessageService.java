@@ -3,16 +3,17 @@ package com.singletonapps.service;
 import com.singletonapps.model.Message;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MessageService {
 
-    List<com.singletonapps.model.Message> getAllMessages();
+    List<Message> getAllMessages();
 
     Message getMessage(long messageId);
 
-    Message addMessage(com.singletonapps.model.Message message);
+    Message addMessage(Message message);
 
-    Message updateMessage(com.singletonapps.model.Message message);
+    Message updateMessage(Message message);
 
     Message removeMessage(long id);
 
