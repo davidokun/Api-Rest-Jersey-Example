@@ -7,7 +7,8 @@ Basic example of a REST API using Jersey.
 Jersey is a Framework created under the JAX-RS Reference implementation (JSR 311 & JSR 339).
 It provides a set of tools that easily helps to develop consistent Web Services in Java.
 
-This project is a basic setup to start using Jersey to create REST services. It's intention is to get a general idea of it's usage.
+This project is a basic setup to start using Jersey to create REST services. 
+It's intention is to get a general idea of it's usage and get and overview of it's main features.
 
 ---
 
