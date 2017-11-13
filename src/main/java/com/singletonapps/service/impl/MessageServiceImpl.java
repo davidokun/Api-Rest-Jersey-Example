@@ -21,11 +21,11 @@ public class MessageServiceImpl implements MessageService, Serializable {
 
     public MessageServiceImpl(){
         messages.put(1L,
-                new Message(1L, "Winter is coming", "Eddard Stark", LocalDateTime.now()));
+                new Message(1L, "Winter is coming", "eddard", LocalDateTime.now()));
         messages.put(2L,
-                new Message(2L, "Mother of Dragons", "Daenerys Targaryen", LocalDateTime.of(2010,5,15, 10,51,30)));
+                new Message(2L, "Mother of Dragons", "daenerys", LocalDateTime.of(2010,5,15, 10,51,30)));
         messages.put(3L,
-                new Message(3L, "Queen of the Seven Kingdoms", "Cercei Lannister", LocalDateTime.now()));
+                new Message(3L, "Queen of the Seven Kingdoms", "cercei", LocalDateTime.now()));
     }
 
     @Override

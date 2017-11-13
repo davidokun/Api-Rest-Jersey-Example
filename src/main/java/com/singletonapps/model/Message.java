@@ -3,8 +3,7 @@ package com.singletonapps.model;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @XmlRootElement
 public class Message {
@@ -14,6 +13,7 @@ public class Message {
     private LocalDateTime lastModified;
     private String author;
     private Map<Long, Comment> comments = new HashMap<>();
+    private Set<Link> links = new HashSet<>();
 
     public Message() {
     }
@@ -64,5 +64,20 @@ public class Message {
 
     public void setComments(Map<Long, Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(Set<Link> links) {
+        this.links = links;
+    }
+
+    public void addLink(String url, String rel){
+        Link link = new Link();
+        link.setUrl(url);
+        link.setRel(rel);
+        links.add(link);
     }
 }

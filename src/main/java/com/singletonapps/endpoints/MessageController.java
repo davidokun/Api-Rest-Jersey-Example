@@ -48,9 +48,15 @@ public class MessageController {
     @GET
     @Path("/{messageId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getMessage(@PathParam("messageId") long messageId){
+    public Response getMessage(@PathParam("messageId") long messageId, @Context UriInfo uriInfo){
 
-        return Response.ok(messageService.getMessage(messageId))
+        final Message message = messageService.getMessage(messageId);
+
+        message.addLink(this.getUriForSelf(uriInfo), "self");
+        message.addLink(this.getUriForAuthor(uriInfo, message), "author");
+        message.addLink(this.getUriForComments(uriInfo, message), "comments");
+
+        return Response.ok(message)
                 .build();
     }
 
@@ -95,5 +101,33 @@ public class MessageController {
     public CommentController getCommentController(){
 
         return commentController;
+    }
+
+    private String getUriForSelf(UriInfo uriInfo) {
+        return uriInfo.getAbsolutePathBuilder()
+                .build()
+                .toString();
+    }
+
+    private String getUriForAuthor(UriInfo uriInfo, Message message) {
+
+        return uriInfo.getBaseUriBuilder()
+                .path(ProfileController.class)
+                .path(message.getAuthor())
+                .build()
+                .toString();
+
+    }
+
+    private String getUriForComments(UriInfo uriInfo, Message message) {
+
+        return uriInfo.getBaseUriBuilder()
+                .path(MessageController.class)
+                .path(MessageController.class, "getCommentController")
+                .path(CommentController.class)
+                .resolveTemplate("messageId", message.getId())
+                .build()
+                .toString();
+
     }
 }

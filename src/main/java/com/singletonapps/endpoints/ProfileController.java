@@ -38,11 +38,11 @@ public class ProfileController {
     }
 
     @GET
-    @Path("/{profileId}")
+    @Path("/{profileName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getProfile(@PathParam("profileId") Long id){
+    public Response getProfile(@PathParam("profileName") String profileName){
 
-        return Response.ok(profileService.getProfile(id))
+        return Response.ok(profileService.getProfile(profileName))
                 .build();
     }
 
@@ -76,11 +76,11 @@ public class ProfileController {
     }
 
     @DELETE
-    @Path("/{profileId}")
+    @Path("/{profileName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response removeProfile(@PathParam("profileId") long id){
+    public Response removeProfile(@PathParam("profileName") String profileName){
 
-        profileService.removeProfile(id);
+        profileService.removeProfile(profileName);
 
         return Response.noContent()
                 .build();
