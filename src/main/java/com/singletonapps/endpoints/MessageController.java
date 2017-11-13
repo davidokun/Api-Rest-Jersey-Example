@@ -2,6 +2,8 @@ package com.singletonapps.endpoints;
 
 import com.singletonapps.model.Message;
 import com.singletonapps.service.MessageService;
+import com.singletonapps.util.HateoasResourceHelper;
+import com.singletonapps.util.LinkType;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -22,8 +24,8 @@ public class MessageController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMessages(@QueryParam("year") int year,
-                                     @QueryParam("offset") int offset,
-                                     @QueryParam("size") int size){
+                                @QueryParam("offset") int offset,
+                                @QueryParam("size") int size){
 
         GenericEntity<List<Message>> entity;
 
@@ -52,9 +54,7 @@ public class MessageController {
 
         final Message message = messageService.getMessage(messageId);
 
-        message.addLink(this.getUriForSelf(uriInfo), "self");
-        message.addLink(this.getUriForAuthor(uriInfo, message), "author");
-        message.addLink(this.getUriForComments(uriInfo, message), "comments");
+        addMessageLinks(uriInfo, message);
 
         return Response.ok(message)
                 .build();
@@ -103,31 +103,14 @@ public class MessageController {
         return commentController;
     }
 
-    private String getUriForSelf(UriInfo uriInfo) {
-        return uriInfo.getAbsolutePathBuilder()
-                .build()
-                .toString();
+
+    private void addMessageLinks(@Context UriInfo uriInfo, Message message) {
+        message.addLink(HateoasResourceHelper.getUriForSelf(uriInfo),
+                LinkType.SELF.getType());
+        message.addLink(HateoasResourceHelper.getUriForAuthor(uriInfo, message),
+                LinkType.AUTHOR.getType());
+        message.addLink(HateoasResourceHelper.getUriForComments(uriInfo, message),
+                LinkType.COMMENTS.getType());
     }
 
-    private String getUriForAuthor(UriInfo uriInfo, Message message) {
-
-        return uriInfo.getBaseUriBuilder()
-                .path(ProfileController.class)
-                .path(message.getAuthor())
-                .build()
-                .toString();
-
-    }
-
-    private String getUriForComments(UriInfo uriInfo, Message message) {
-
-        return uriInfo.getBaseUriBuilder()
-                .path(MessageController.class)
-                .path(MessageController.class, "getCommentController")
-                .path(CommentController.class)
-                .resolveTemplate("messageId", message.getId())
-                .build()
-                .toString();
-
-    }
 }
