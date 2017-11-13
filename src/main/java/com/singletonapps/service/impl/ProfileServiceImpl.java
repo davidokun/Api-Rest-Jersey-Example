@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 @Singleton
 public class ProfileServiceImpl implements ProfileService, Serializable {
 
-    private Map<Long, Profile> profiles = DataBaseStub.getProfiles();
+    private Map<String, Profile> profiles = DataBaseStub.getProfiles();
 
     public ProfileServiceImpl() {
 
-        profiles.put(1L, new Profile(1, "admin", "John", "Doe", LocalDateTime.now()));
-        profiles.put(2L, new Profile(2, "publisher", "Jane", "Doe", LocalDateTime.now()));
-        profiles.put(3L, new Profile(3, "editor", "Edward", "Elric", LocalDateTime.of(2009, 6, 3, 5,30,30)));
+        profiles.put("eddard", new Profile(1, "eddard", "Eddard", "Stark", LocalDateTime.now()));
+        profiles.put("daenerys", new Profile(2, "daenerys", "Daenerys", "Targaryen", LocalDateTime.now()));
+        profiles.put("cercei", new Profile(3, "cercei", "Cercei", "Lannister", LocalDateTime.of(2009, 6, 3, 5,30,30)));
     }
 
     @Override
@@ -32,12 +32,12 @@ public class ProfileServiceImpl implements ProfileService, Serializable {
     }
 
     @Override
-    public Profile getProfile(long profileId) {
+    public Profile getProfile(String profileName) {
 
-        final Profile profile = profiles.get(profileId);
+        final Profile profile = profiles.get(profileName);
 
         if (profile == null) {
-            throw new DataNotFoundException("Profile with Id " + profileId + " not found");
+            throw new DataNotFoundException("Profile with name " + profileName + " not found");
         }
 
         return profile;
@@ -47,7 +47,7 @@ public class ProfileServiceImpl implements ProfileService, Serializable {
     public Profile addProfile(Profile profile) {
         profile.setId(profiles.size() + 1);
         profile.setLastModified(LocalDateTime.now());
-        profiles.put(profile.getId(), profile);
+        profiles.put(profile.getProfileName(), profile);
         return profile;
     }
 
@@ -57,13 +57,13 @@ public class ProfileServiceImpl implements ProfileService, Serializable {
             return null;
         }
         profile.setLastModified(LocalDateTime.now());
-        profiles.put(profile.getId(), profile);
+        profiles.put(profile.getProfileName(), profile);
         return profile;
     }
 
     @Override
-    public Profile removeProfile(long id) {
-        return profiles.remove(id);
+    public Profile removeProfile(String profileName) {
+        return profiles.remove(profileName);
     }
 
     @Override

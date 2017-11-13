@@ -8,13 +8,13 @@ public interface ProfileService {
 
     List<Profile> getAllProfiles();
 
-    Profile getProfile(long messageId);
+    Profile getProfile(String profileName);
 
     Profile addProfile(Profile profile);
 
     Profile updateProfile(Profile profile);
 
-    Profile removeProfile(long id);
+    Profile removeProfile(String profileName);
 
     List<Profile> getAllProfilesByYear(int year);
 
