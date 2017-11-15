@@ -45,25 +45,69 @@ To test the service make the following calls:
     ```Json
     [
         {
-            "author": "Eddard Stark",
-            "lastModified": "2017-10-27T20:17:58.147-05:00",
+            "author": "eddard",
             "id": 1,
+            "lastModified": "2017-11-14T20:27:15.471",
+            "links": [],
             "message": "Winter is coming"
         },
         {
-            "author": "Daenerys Targaryen",
-            "lastModified": "2017-10-27T20:17:58.147-05:00",
+            "author": "daenerys",
             "id": 2,
+            "lastModified": "2010-05-15T10:51:30",
+            "links": [],
             "message": "Mother of Dragons"
         },
         {
-            "author": "Cercei Lannister",
-            "lastModified": "2017-10-27T20:17:58.147-05:00",
+            "author": "cercei",
             "id": 3,
+            "lastModified": "2017-11-14T20:27:15.472",
+            "links": [],
             "message": "Queen of the Seven Kingdoms"
         }
     ]
     ```
+    Also you can get a xml response adding an *Accept* header in the request
+    
+    `curl -X GET --header "Accept: application/xml" http://localhost:8080/v1/messages`
+    
+    ```XML
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <messages>
+        <message>
+            <author>eddard</author>
+            <id>1</id>
+            <lastModified/>
+            <message>Winter is coming</message>
+        </message>
+        <message>
+            <author>daenerys</author>
+            <id>2</id>
+            <lastModified/>
+            <links>
+                <rel>comments</rel>
+                <url>http://localhost:8080/v1/messages/2/comments/</url>
+            </links>
+            <links>
+                <rel>self</rel>
+                <url>http://localhost:8080/v1/messages/2</url>
+            </links>
+            <links>
+                <rel>author</rel>
+                <url>http://localhost:8080/v1/profiles/daenerys</url>
+            </links>
+            <message>Mother of Dragons</message>
+        </message>
+        <message>
+            <author>cercei</author>
+            <id>3</id>
+            <lastModified/>
+            <message>Queen of the Seven Kingdoms</message>
+        </message>
+    </messages>
+    ```
+    
+    
     
 2. To get a single message:
 
@@ -71,12 +115,53 @@ To test the service make the following calls:
     
     ```Json
     {
-        "author": "Daenerys Targaryen",
-        "lastModified": "2017-10-27T20:20:05.572-05:00",
+        "author": "daenerys",
         "id": 2,
+        "lastModified": "2010-05-15T10:51:30",
+        "links": [
+            {
+                "rel": "comments",
+                "url": "http://localhost:8080/v1/messages/2/comments/"
+            },
+            {
+                "rel": "self",
+                "url": "http://localhost:8080/v1/messages/2"
+            },
+            {
+                "rel": "author",
+                "url": "http://localhost:8080/v1/profiles/daenerys"
+            }
+        ],
         "message": "Mother of Dragons"
     }
     ```
+    Xml Response
+    
+    `curl -X GET --header "Accept: application/xml" http://localhost:8080/v1/messages/2`
+    
+    ```XML
+    <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <message>
+        <author>daenerys</author>
+        <id>2</id>
+        <lastModified/>
+        <links>
+            <rel>comments</rel>
+            <url>http://localhost:8080/v1/messages/2/comments/</url>
+        </links>
+        <links>
+            <rel>self</rel>
+            <url>http://localhost:8080/v1/messages/2</url>
+        </links>
+        <links>
+            <rel>author</rel>
+            <url>http://localhost:8080/v1/profiles/daenerys</url>
+        </links>
+        <message>Mother of Dragons</message>
+    </message>
+    ```
+    
+    
     
 ### Profiles Endpoint
 
@@ -87,34 +172,43 @@ To test the service make the following calls:
     It should return a response like :
     
     ```Json
-    
     [
         {
-            "firstName": "John",
-            "id": 1,
-            "lastName": "Doe",
-            "profileName": "admin"
+            "firstName": "Cercei",
+            "id": 3,
+            "lastModified": "2009-06-03T05:30:30",
+            "lastName": "Lannister",
+            "profileName": "cercei"
         },
         {
-            "firstName": "Jane",
+            "firstName": "Daenerys",
             "id": 2,
-            "lastName": "Doe",
-            "profileName": "publisher"
+            "lastModified": "2017-11-14T20:28:40.877",
+            "lastName": "Targaryen",
+            "profileName": "daenerys"
+        },
+        {
+            "firstName": "Eddard",
+            "id": 1,
+            "lastModified": "2017-11-14T20:28:40.877",
+            "lastName": "Stark",
+            "profileName": "eddard"
         }
     ]
     ```
 2. To get a single Profile:
 
-    `curl -X GET http://localhost:8080/v1/profiles/2`
+    `curl -X GET http://localhost:8080/v1/profiles/cercei`
     
     It should get a response like:
     
     ```JSON
     {
-        "firstName": "Jane",
-        "id": 2,
-        "lastName": "Doe",
-        "profileName": "publisher"
+        "firstName": "Cercei",
+        "id": 3,
+        "lastModified": "2009-06-03T05:30:30",
+        "lastName": "Lannister",
+        "profileName": "cercei"
     }
     ```
  
