@@ -11,13 +11,14 @@ import java.net.URI;
 import java.util.List;
 
 @Path("/profiles")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class ProfileController {
 
     @Inject
     private ProfileService profileService;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getProfiles(@BeanParam BeanFilter filter){
 
 
@@ -39,7 +40,6 @@ public class ProfileController {
 
     @GET
     @Path("/{profileName}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getProfile(@PathParam("profileName") String profileName){
 
         return Response.ok(profileService.getProfile(profileName))
@@ -47,8 +47,6 @@ public class ProfileController {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response addProfile(@Context UriInfo uriInfo, Profile profile){
 
         Profile profileCreated = profileService.addProfile(profile);
@@ -65,8 +63,6 @@ public class ProfileController {
 
     @PUT
     @Path("/{profileId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response updateProfile(@PathParam("profileId") long id, Profile profile){
 
         profile.setId(id);
@@ -77,7 +73,6 @@ public class ProfileController {
 
     @DELETE
     @Path("/{profileName}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response removeProfile(@PathParam("profileName") String profileName){
 
         profileService.removeProfile(profileName);

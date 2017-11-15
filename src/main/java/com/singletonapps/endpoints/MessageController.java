@@ -12,6 +12,8 @@ import java.util.List;
 
 
 @Path("/messages")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public class MessageController {
 
     @Inject
@@ -22,7 +24,6 @@ public class MessageController {
 
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getMessages(@QueryParam("year") int year,
                                 @QueryParam("offset") int offset,
                                 @QueryParam("size") int size){
@@ -49,7 +50,6 @@ public class MessageController {
 
     @GET
     @Path("/{messageId}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getMessage(@PathParam("messageId") long messageId, @Context UriInfo uriInfo){
 
         final Message message = messageService.getMessage(messageId);
@@ -61,8 +61,6 @@ public class MessageController {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response addMessage(Message message, @Context UriInfo uriInfo){
 
         Message responseMessage = messageService.addMessage(message);
@@ -75,8 +73,6 @@ public class MessageController {
 
     @PUT
     @Path("/{messageId}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response updateMessage(@PathParam("messageId") long id, Message message){
 
         message.setId(id);
@@ -87,7 +83,6 @@ public class MessageController {
 
     @DELETE
     @Path("/{messageId}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response removeMessage(@PathParam("messageId") long id){
 
         messageService.removeMessage(id);

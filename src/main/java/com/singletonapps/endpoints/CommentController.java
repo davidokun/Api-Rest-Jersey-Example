@@ -10,7 +10,7 @@ import java.util.List;
 
 @Path("/")
 @Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class CommentController {
 
     @Inject
